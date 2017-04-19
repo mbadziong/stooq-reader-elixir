@@ -24,9 +24,14 @@ defmodule StooqReader.MarketIndex do
     end
 
     defp get_index(index) do
-        get(query_params_for(index))
-        |> response
-        |> ResponseParser.get_current_value
+        # TODO: TESLA probably doesn't supports error handling without try catch
+        # consider changing http client library
+        try do
+            get(query_params_for(index)) |> response
+            |> ResponseParser.get_current_value
+        rescue
+            _ -> {:err}
+        end
     end
 
     defp query_params_for(index) do
@@ -35,9 +40,5 @@ defmodule StooqReader.MarketIndex do
 
     defp response(%Tesla.Env{:body => body, :headers => _, :status => 200, :url => _}) do
         {:ok, body}
-    end
-
-    defp response(%Tesla.Env{:body => _, :headers => _, :status => _, :url => _}) do
-        {:err}
     end
 end

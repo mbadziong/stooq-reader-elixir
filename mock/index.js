@@ -7,6 +7,7 @@
     const SAMPLE_RESPONSE = "Symbol,Data,Czas,Otwarcie,Najwyzszy,Najnizszy,Zamkniecie\r\n\
 Index,2017-04-18,10:01:00,58939.48,59223.25,58939.48,59025.43\r\n";
 
+    //should be used to emulate stooq errors
     const ERR_RESPONSE = "Przekroczono limit zadan.";
 
     app.get("/q/l", (req, res) => {

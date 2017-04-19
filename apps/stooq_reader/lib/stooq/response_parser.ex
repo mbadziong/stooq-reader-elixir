@@ -1,7 +1,7 @@
 defmodule StooqReader.ResponseParser do
 
     @current_value_key "Zamkniecie"
-    
+
     def get_current_value(response) do
         case response do
             {:ok, body} -> {:ok, parse_body(body)}
