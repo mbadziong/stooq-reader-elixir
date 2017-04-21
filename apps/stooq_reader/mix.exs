@@ -36,6 +36,7 @@ defmodule StooqReader.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:tesla, "~> 0.6.0"}]
+    [{:tesla, "~> 0.6.0"},
+     {:credo, "~> 0.7"}]
   end
 end

@@ -38,6 +38,7 @@ defmodule Webapp.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
-     {:stooq_reader, in_umbrella: true}]
+     {:stooq_reader, in_umbrella: true},
+     {:credo, "~> 0.7"}]
   end
 end
