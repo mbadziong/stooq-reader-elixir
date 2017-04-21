@@ -12,13 +12,13 @@ defmodule StooqReader do
 
   defp to_map(index) do
     case index do
-      [{:err} | _tail] -> [{:err, "API error"}]
       [{:ok, _, _} | _tail] -> 
         if Enum.filter(index, &(elem(&1, 2) == nil)) |> length > 0 do
           [{:err, "Parse error"}]
         else
           index |> Enum.map(fn index -> {elem(index, 1), elem(index, 2)} end)
         end
+      _ -> index
     end
     |> Enum.into(%{})
   end
