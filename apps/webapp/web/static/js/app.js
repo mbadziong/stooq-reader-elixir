@@ -18,7 +18,16 @@ import "phoenix_html"
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
-import socket from "./stooq"
+import channel from "./stooq"
 
 const elmDiv = document.getElementById('elm-main')
     , elmApp = Elm.Main.embed(elmDiv)
+
+channel.on("update", payload => {
+    elmApp.ports.newMarketIndex.send(payload);
+});
+
+channel.on("error", payload => {
+    elmApp.ports.error.send(payload);
+});
+

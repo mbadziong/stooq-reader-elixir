@@ -6,14 +6,10 @@ defmodule Webapp.StooqChannel do
     end
 
     def send_update(market_index) do
-        payload = %{
-            "marketIndex" => market_index
-        }
-
-        Webapp.Endpoint.broadcast("stooq:update", "update", payload)
+        Webapp.Endpoint.broadcast("stooq:update", "update", market_index)
     end
 
     def send_err(msg) do
-        Webapp.Endpoint.broadcast("stooq:update", "error", msg)
+        Webapp.Endpoint.broadcast("stooq:update", "error", %{message: msg})
     end
 end

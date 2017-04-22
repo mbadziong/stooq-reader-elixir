@@ -1,6 +1,6 @@
 import socket from "./socket"
 
-(function () {
+const channel = (function () {
     let channel = socket.channel("stooq:update", {});
 
     channel.on("update", payload => {
@@ -14,4 +14,8 @@ import socket from "./socket"
     channel.join()
         .receive("ok", resp => { console.log("Joined successfully", resp) })
         .receive("error", resp => { console.log("Unable to join", resp) });
+
+    return channel;
 })();
+
+export default channel;
