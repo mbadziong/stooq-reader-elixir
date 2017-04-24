@@ -7,4 +7,5 @@ type alias MarketIndex =
     , wig20fut : String
     , mwig40 : String
     , swig80 : String
+    , time : Int
     }

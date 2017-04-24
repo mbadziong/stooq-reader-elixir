@@ -1,14 +1,16 @@
 module Main exposing (..)
 
 import Html exposing (Html, program, div, text)
-import Html.Attributes exposing (..)
-import Html.Events exposing (onInput)
-import String
+import Date exposing (fromTime)
+import Date.Extra exposing (toFormattedString)
+import Material.Table as Table
 import Stooq.WebsocketPorts exposing (newMarketIndex, error)
 import Stooq.MarketIndex exposing (MarketIndex)
 import Stooq.Error exposing (Error)
+import Stooq.Consts exposing (columnNames, dateFormat)
 
 
+main : Program Never Model Msg
 main =
     program
         { init = init
@@ -67,8 +69,33 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ text (toString model)
+    Table.table []
+        [ Table.thead []
+            [ Table.tr []
+                (List.map
+                    (\index ->
+                        Table.th [] [ text index ]
+                    )
+                    columnNames
+                )
+            ]
+        , Table.tbody []
+            (List.map
+                (\marketIndex ->
+                    Table.tr []
+                        [ Table.th [] [ text (toFormattedString dateFormat (Date.fromTime (toFloat marketIndex.time * 1000))) ]
+                        , Table.th [] [ text marketIndex.wig ]
+                        , Table.th [] [ text marketIndex.wig20 ]
+                        , Table.th [] [ text marketIndex.wig20fut ]
+                        , Table.th [] [ text marketIndex.mwig40 ]
+                        , Table.th [] [ text marketIndex.swig80 ]
+                        ]
+                )
+                (List.take
+                    50
+                    model.allIndexes
+                )
+            )
         ]
 
 

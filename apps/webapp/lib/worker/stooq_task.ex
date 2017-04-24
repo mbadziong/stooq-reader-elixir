@@ -6,7 +6,6 @@ defmodule Webapp.StooqTask do
             %{err: err} ->
                 StooqChannel.send_err(err)
             market_index -> 
-                IO.inspect(market_index)
                 StooqChannel.send_update(market_index)
         end
     end

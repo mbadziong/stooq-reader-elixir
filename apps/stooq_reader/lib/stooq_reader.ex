@@ -8,6 +8,7 @@ defmodule StooqReader do
     @indexes
     |> Enum.map(&MarketIndex.ask_stooq/1)
     |> to_map
+    |> add_current_date
   end
 
   defp to_map(index) do
@@ -21,5 +22,10 @@ defmodule StooqReader do
       _ -> index
     end
     |> Enum.into(%{})
+  end
+
+  defp add_current_date(marketIndex) do
+    marketIndex
+    |> Map.put("time", DateTime.to_unix(DateTime.utc_now))
   end
 end
