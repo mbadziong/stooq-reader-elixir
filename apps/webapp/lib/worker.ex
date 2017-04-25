@@ -19,8 +19,16 @@ defmodule Webapp.Worker do
     end
 
     defp do_work(state) do
-        StooqTask.fetch_market_index
-        {:ok, state}
+        response = StooqTask.fetch_market_index
+        case state do
+            [] -> StooqTask.send(response)
+            _ -> StooqTask.send_if_no_duplicate(state, response)
+        end
+
+        case response do
+                %{err: _} -> state
+                _ -> {:ok, response}
+            end
     end
 
     defp schedule_work do

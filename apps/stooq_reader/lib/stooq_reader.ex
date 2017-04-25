@@ -4,7 +4,7 @@ defmodule StooqReader do
 
   @indexes [:wig, :wig20, :wig20fut, :mwig40, :swig80]
   @parse_error "Parse error"
-  @time_key "time"
+  @time_key :time
 
   def fetch_market_index do
     @indexes
