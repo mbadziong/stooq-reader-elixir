@@ -1,12 +1,13 @@
 module Main exposing (..)
 
-import Html exposing (Html, program, div, text)
+import Html exposing (Html, program, div, text, p)
 import Date exposing (fromTime)
 import Date.Extra exposing (toFormattedString)
 import Material
 import Material.Table as Table
 import Material.Layout as Layout
 import Material.Options as Options
+import Material.Typography as Typo
 import Stooq.WebsocketPorts exposing (newMarketIndex, error)
 import Stooq.MarketIndex exposing (MarketIndex)
 import Stooq.Error exposing (Error)
@@ -98,7 +99,11 @@ view model =
                         [ Table.tr []
                             (List.map
                                 (\index ->
-                                    Table.th [] [ text index ]
+                                    Table.th []
+                                        [ Options.styled p
+                                            [ Typo.center ]
+                                            [ text index ]
+                                        ]
                                 )
                                 columnNames
                             )
@@ -107,12 +112,12 @@ view model =
                         (List.map
                             (\marketIndex ->
                                 Table.tr []
-                                    [ Table.th [] [ text (toFormattedString dateFormat (Date.fromTime (toFloat marketIndex.time * 1000))) ]
-                                    , Table.th [] [ text marketIndex.wig ]
-                                    , Table.th [] [ text marketIndex.wig20 ]
-                                    , Table.th [] [ text marketIndex.wig20fut ]
-                                    , Table.th [] [ text marketIndex.mwig40 ]
-                                    , Table.th [] [ text marketIndex.swig80 ]
+                                    [ Table.th [] [ text (toFormattedString dateFormat (Date.fromTime (marketIndex.time * 1000))) ]
+                                    , Table.th [] [ text (toString marketIndex.wig) ]
+                                    , Table.th [] [ text (toString marketIndex.wig20) ]
+                                    , Table.th [] [ text (toString marketIndex.wig20fut) ]
+                                    , Table.th [] [ text (toString marketIndex.mwig40) ]
+                                    , Table.th [] [ text (toString marketIndex.swig80) ]
                                     ]
                             )
                             (List.take

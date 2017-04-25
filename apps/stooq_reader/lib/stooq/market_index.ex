@@ -1,6 +1,4 @@
 defmodule StooqReader.MarketIndex do
-    use HTTPotion.Base
-
     alias StooqReader.ResponseParser
 
     @base_url Application.get_env(:stooq_reader, :api_base_url)
@@ -24,13 +22,14 @@ defmodule StooqReader.MarketIndex do
     end
 
     defp get_index(index) do
-        process_url(index)
-        |> get()
+        index
+        |> build_url
+        |> HTTPotion.get()
         |> response
         |> ResponseParser.get_current_value
     end
 
-    defp process_url(index) do
+    defp build_url(index) do
         @base_url <> @prefix <> index <> @suffix
     end
 

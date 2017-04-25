@@ -3,6 +3,8 @@ defmodule StooqReader do
   alias StooqReader.MarketIndex
 
   @indexes [:wig, :wig20, :wig20fut, :mwig40, :swig80]
+  @parse_error "Parse error"
+  @time_key "time"
 
   def fetch_market_index do
     @indexes
@@ -15,7 +17,7 @@ defmodule StooqReader do
     case index do
       [{:ok, _, _} | _tail] -> 
         if Enum.filter(index, &(elem(&1, 2) == nil)) |> length > 0 do
-          [{:err, "Parse error"}]
+          [{:err, @parse_error}]
         else
           index |> Enum.map(fn index -> {elem(index, 1), elem(index, 2)} end)
         end
@@ -26,6 +28,6 @@ defmodule StooqReader do
 
   defp add_current_date(marketIndex) do
     marketIndex
-    |> Map.put("time", DateTime.to_unix(DateTime.utc_now))
+    |> Map.put(@time_key, DateTime.to_unix(DateTime.utc_now))
   end
 end

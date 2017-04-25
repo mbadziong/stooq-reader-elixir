@@ -31,8 +31,8 @@ use Mix.Config
 
 #stooq service:
 #config :stooq_reader, 
-#    api_base_url: "https://stooq.pl/q/l"
+#    api_base_url: "https://stooq.pl/q/l/"
 
 #mock:
 config :stooq_reader, 
-    api_base_url: "http://localhost:3000/q/l/"
+    api_base_url: "http://localhost:3000/q/l"

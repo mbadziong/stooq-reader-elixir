@@ -5,7 +5,7 @@ defmodule Webapp.StooqTask do
         case StooqReader.fetch_market_index do
             %{err: err} ->
                 StooqChannel.send_err(err)
-            market_index -> 
+            market_index ->
                 StooqChannel.send_update(market_index)
         end
     end

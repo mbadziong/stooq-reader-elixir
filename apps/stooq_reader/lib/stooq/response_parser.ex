@@ -17,6 +17,7 @@ defmodule StooqReader.ResponseParser do
                 Enum.zip(Enum.at(rows, 0), Enum.at(rows, 1))
                 |> Enum.find(fn tuple -> elem(tuple, 0) == @current_value_key end)
                 |> elem(1)
+                |> parse_float
             _ -> nil
         end
     end
@@ -25,5 +26,12 @@ defmodule StooqReader.ResponseParser do
         body
         |> String.split(@row_separator)
         |> Enum.filter_map(&(String.length(&1) > 0), &(String.split(&1, @value_separator)))
+    end
+
+    defp parse_float(str) do
+        case Float.parse(str) do
+            {val, _} -> val
+            :error -> nil
+        end
     end
 end
