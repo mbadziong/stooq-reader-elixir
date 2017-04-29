@@ -10,7 +10,7 @@ defmodule Webapp.StooqTask do
             %{err: err} ->
                 StooqChannel.send_err(err)
             market_index ->
-                StooqChannel.send_update(market_index)
+                log_and_send(market_index)
         end
     end
 
@@ -30,5 +30,10 @@ defmodule Webapp.StooqTask do
         List.foldl(indexes, false, fn(index, acc) -> 
             acc || latest[index] == current[index]
         end)
+    end
+
+    defp log_and_send(market_index) do
+        FileLogger.append(market_index)
+        StooqChannel.send_update(market_index)
     end
 end
