@@ -30,3 +30,5 @@ elm-stuff
 repl-temp-*
 
 web/static/vendor
+
+log.txt

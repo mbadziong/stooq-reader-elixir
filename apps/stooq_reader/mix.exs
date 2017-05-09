@@ -37,6 +37,7 @@ defmodule StooqReader.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [{:httpotion, "~> 3.0.2"},
-     {:credo, "~> 0.7"}]
+     {:credo, "~> 0.7"},
+     {:mock, "~> 0.2.0", only: :test}]
   end
 end
