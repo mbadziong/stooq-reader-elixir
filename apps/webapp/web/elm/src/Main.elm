@@ -9,8 +9,9 @@ import Material.Layout as Layout
 import Material.Options as Options
 import Material.Typography as Typo
 import Stooq.WebsocketPorts exposing (newMarketIndex, error)
-import Stooq.MarketIndex exposing (MarketIndex)
-import Stooq.Error exposing (Error)
+import Stooq.Model.MarketIndex exposing (MarketIndex)
+import Stooq.Table.TableViewHelper exposing (createRows, getColor)
+import Stooq.Model.Error exposing (Error)
 import Stooq.Consts exposing (columnNames, dateFormat)
 
 
@@ -113,16 +114,16 @@ view model =
                             (\marketIndex ->
                                 Table.tr []
                                     [ Table.th [] [ text (toFormattedString dateFormat (Date.fromTime (marketIndex.time * 1000))) ]
-                                    , Table.th [] [ text (toString marketIndex.wig) ]
-                                    , Table.th [] [ text (toString marketIndex.wig20) ]
-                                    , Table.th [] [ text (toString marketIndex.wig20fut) ]
-                                    , Table.th [] [ text (toString marketIndex.mwig40) ]
-                                    , Table.th [] [ text (toString marketIndex.swig80) ]
+                                    , Table.th [ getColor marketIndex.wigIcon ] [ text (toString marketIndex.wig) ]
+                                    , Table.th [ getColor marketIndex.wig20Icon ] [ text (toString marketIndex.wig20) ]
+                                    , Table.th [ getColor marketIndex.wig20futIcon ] [ text (toString marketIndex.wig20fut) ]
+                                    , Table.th [ getColor marketIndex.mwig40Icon ] [ text (toString marketIndex.mwig40) ]
+                                    , Table.th [ getColor marketIndex.swig80Icon ] [ text (toString marketIndex.swig80) ]
                                     ]
                             )
                             (List.take
                                 50
-                                model.allIndexes
+                                (createRows model.allIndexes)
                             )
                         )
                     ]

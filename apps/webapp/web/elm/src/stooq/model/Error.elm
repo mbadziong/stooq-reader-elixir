@@ -1,4 +1,4 @@
-module Stooq.Error exposing (Error)
+module Stooq.Model.Error exposing (Error)
 
 
 type alias Error =

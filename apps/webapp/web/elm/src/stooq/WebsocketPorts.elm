@@ -1,7 +1,7 @@
 port module Stooq.WebsocketPorts exposing (newMarketIndex, error)
 
-import Stooq.MarketIndex exposing (MarketIndex)
-import Stooq.Error exposing (Error)
+import Stooq.Model.MarketIndex exposing (MarketIndex)
+import Stooq.Model.Error exposing (Error)
 
 
 port newMarketIndex : (MarketIndex -> msg) -> Sub msg

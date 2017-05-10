@@ -1,4 +1,4 @@
-module Stooq.MarketIndex exposing (MarketIndex)
+module Stooq.Model.MarketIndex exposing (MarketIndex)
 
 
 type alias MarketIndex =
