@@ -27,8 +27,8 @@ defmodule Webapp.StooqTask do
 
     defp duplicate({:ok, latest}, current) do
         indexes = Map.keys(current) |> List.delete(:time)
-        List.foldl(indexes, false, fn(index, acc) -> 
-            acc || latest[index] == current[index]
+        not List.foldl(indexes, false, fn(index, acc) -> 
+            acc || latest[index] != current[index]
         end)
     end
 
